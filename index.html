@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Potential Thrust — Real Estate Automation for DFW Agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:ital,wght@0,300;0,400;0,600;1,400&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:   #080809;
+    --ink:     #111113;
+    --panel:   #18181B;
+    --border:  #2A2A2E;
+    --amber:   #F0A500;
+    --amber2:  #FFB800;
+    --white:   #F0EDE6;
+    --muted:   #7A7A82;
+    --red:     #E84040;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ─────────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  /* ── NAV ────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(8,8,9,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--amber); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--amber);
+    color: var(--black) !important;
+    padding: 10px 22px;
+    border: none;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.14em !important;
+  }
+
+  .nav-cta:hover { background: var(--amber2) !important; color: var(--black) !important; }
+
+  /* ── TICKER ─────────────────────────────────────── */
+  .ticker {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--amber);
+    color: var(--black);
+    padding: 8px 0;
+    overflow: hidden;
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    animation: ticker 30s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+
+  .ticker-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0 32px;
+  }
+
+  .ticker-dot {
+    color: rgba(0,0,0,0.3);
+    padding: 0 8px 0 0;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ── HERO ───────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(240,165,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,165,0,0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 10%;
+    right: -10%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(ellipse, rgba(240,165,0,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--amber);
+  }
+
+  .hero h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(64px, 9vw, 148px);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--white);
+    max-width: 14ch;
+    margin-bottom: 0;
+  }
+
+  .hero h1 .accent { color: var(--amber); }
+  .hero h1 .outline {
+    -webkit-text-stroke: 2px var(--white);
+    color: transparent;
+  }
+
+  .hero-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 48px;
+    gap: 48px;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 38ch;
+    line-height: 1.7;
+  }
+
+  .hero-sub strong { color: var(--white); font-weight: 600; }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--amber);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 18px 40px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    position: relative;
+  }
+
+  .btn-primary::after {
+    content: '→';
+    margin-left: 10px;
+  }
+
+  .btn-primary:hover { background: var(--amber2); transform: translateY(-2px); }
+
+  .btn-ghost {
+    display: inline-block;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.2s;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+  }
+
+  .btn-ghost:hover { color: var(--white); border-color: var(--white); }
+
+  /* ── STAT STRIP ─────────────────────────────────── */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat-item {
+    padding: 40px 48px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Anton', sans-serif;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--amber);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── SECTION SHARED ─────────────────────────────── */
+  section { padding: 120px 48px; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    height: 1px;
+    width: 40px;
+    background: var(--amber);
+    display: inline-block;
+  }
+
+  .section-heading {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(40px, 5vw, 80px);
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--white);
+    letter-spacing: 0.01em;
+    margin-bottom: 24px;
+  }
+
+  /* ── PROBLEM ────────────────────────────────────── */
+  .problem {
+    background: var(--ink);
+    padding: 120px 48px;
+  }
+
+  .problem-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .problem-list {
+    list-style: none;
+    margin-top: 48px;
+  }
+
+  .problem-list li {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    line-height: 1.5;
+    transition: color 0.2s;
+  }
+
+  .problem-list li:hover { color: var(--white); }
+
+  .problem-list li::before {
+    content: '—';
+    color: var(--red);
+    flex-shrink: 0;
+    font-weight: 600;
+    margin-top: 1px;
+  }
+
+  .problem-right {
+    padding-top: 48px;
+  }
+
+  .problem-callout {
+    background: var(--panel);
+    border-left: 3px solid var(--amber);
+    padding: 36px 32px;
+    margin-bottom: 24px;
+  }
+
+  .problem-callout p {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--white);
+    font-style: italic;
+  }
+
+  .problem-callout cite {
+    display: block;
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-style: normal;
+  }
+
+  /* ── HOW IT WORKS ───────────────────────────────── */
+  .how {
+    padding: 120px 48px;
+    position: relative;
+  }
+
+  .how-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 80px;
+    border: 1px solid var(--border);
+  }
+
+  .step {
+    padding: 56px 48px;
+    border-right: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .step:last-child { border-right: none; }
+  .step:hover { background: var(--panel); }
+
+  .step-num {
+    font-family: 'Anton', sans-serif;
+    font-size: 120px;
+    line-height: 1;
+    color: rgba(240,165,0,0.07);
+    position: absolute;
+    top: -16px;
+    right: 24px;
+    letter-spacing: -0.04em;
+    pointer-events: none;
+    transition: color 0.3s;
+  }
+
+  .step:hover .step-num { color: rgba(240,165,0,0.12); }
+
+  .step-icon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--amber);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    font-size: 18px;
+  }
+
+  .step h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+
+  .step p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .step-detail {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  /* ── FEATURES ───────────────────────────────────── */
+  .features {
+    background: var(--ink);
+    padding: 120px 48px;
+  }
+
+  .features-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+    gap: 48px;
+  }
+
+  .features-intro {
+    max-width: 36ch;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .feature {
+    background: var(--ink);
+    padding: 48px;
+    display: flex;
+    gap: 28px;
+    transition: background 0.25s;
+  }
+
+  .feature:hover { background: var(--panel); }
+
+  .feature-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    color: var(--amber);
+  }
+
+  .feature-body h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .feature-body p {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── PRICING ─────────────────────────────────────── */
+  .pricing { padding: 120px 48px; }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 80px;
+  }
+
+  .plan {
+    background: var(--black);
+    padding: 56px 48px;
+    position: relative;
+    transition: background 0.25s;
+  }
+
+  .plan:hover { background: var(--panel); }
+
+  .plan.featured {
+    background: var(--amber);
+  }
+
+  .plan.featured:hover { background: var(--amber2); }
+
+  .plan-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    background: var(--black);
+    color: var(--amber);
+    display: inline-block;
+    padding: 6px 14px;
+    margin-bottom: 28px;
+  }
+
+  .plan.featured .plan-badge {
+    background: rgba(0,0,0,0.15);
+    color: var(--black);
+  }
+
+  .plan-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .plan.featured .plan-name { color: var(--black); }
+
+  .plan-tagline {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .plan.featured .plan-tagline { color: rgba(0,0,0,0.6); }
+
+  .plan-price {
+    font-family: 'Anton', sans-serif;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .plan.featured .plan-price { color: var(--black); }
+
+  .plan-period {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+
+  .plan.featured .plan-period { color: rgba(0,0,0,0.5); }
+
+  .plan-setup {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .plan.featured .plan-setup {
+    color: rgba(0,0,0,0.5);
+    border-color: rgba(0,0,0,0.15);
+  }
+
+  .plan-features {
+    list-style: none;
+    margin-bottom: 40px;
+  }
+
+  .plan-features li {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .plan.featured .plan-features li {
+    color: rgba(0,0,0,0.7);
+    border-color: rgba(0,0,0,0.12);
+  }
+
+  .plan-features li::before {
+    content: '✓';
+    color: var(--amber);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .plan.featured .plan-features li::before {
+    color: var(--black);
+  }
+
+  .plan-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    color: var(--white);
+    transition: all 0.2s;
+  }
+
+  .plan-cta:hover { border-color: var(--amber); color: var(--amber); }
+
+  .plan.featured .plan-cta {
+    background: var(--black);
+    color: var(--amber);
+    border-color: transparent;
+  }
+
+  .plan.featured .plan-cta:hover {
+    background: var(--ink);
+  }
+
+  /* ── CTA ──────────────────────────────────────────── */
+  .cta-section {
+    background: var(--ink);
+    padding: 120px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cta-section h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(40px, 5vw, 80px);
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--white);
+    max-width: 12ch;
+  }
+
+  .cta-section h2 .accent { color: var(--amber); }
+
+  .cta-right { flex-shrink: 0; }
+
+  .cta-right p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 28px;
+    max-width: 30ch;
+    line-height: 1.65;
+  }
+
+  /* ── FOOTER ─────────────────────────────────────── */
+  footer {
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-left {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  .footer-left span { color: var(--amber); font-weight: 600; }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--amber); }
+
+  /* ── ANIMATIONS ─────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .hero-eyebrow { animation: fadeIn 0.6s ease both; }
+  .hero h1 { animation: fadeUp 0.8s 0.1s ease both; }
+  .hero-sub { animation: fadeUp 0.7s 0.25s ease both; }
+  .hero-actions { animation: fadeUp 0.7s 0.35s ease both; }
+
+  /* ── SCROLL REVEAL ───────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ── LIVE PULSE DOT ────────────────────────────────── */
+  .live-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--amber);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    animation: pulse 2s ease-in-out infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(240,165,0,0.4); }
+    50% { opacity: 0.8; transform: scale(1.2); box-shadow: 0 0 0 6px rgba(240,165,0,0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Potential<span>Thrust</span></a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="https://calendly.com/hello-potentialthrust/30min" class="nav-cta">Book a Free Call</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-eyebrow">
+    <span class="live-dot"></span>
+    Done-For-You GHL Automation · Dallas–Fort Worth
+  </div>
+
+  <h1>
+    Your leads<br>
+    go cold<br>
+    in <span class="accent">5 min.</span><br>
+    We hit in<br>
+    <span class="outline">ninety.</span>
+  </h1>
+
+  <div class="hero-bottom">
+    <p class="hero-sub">
+      Potential Thrust builds <strong>AI-powered lead systems</strong> for solo DFW agents — so every opt-in gets a response before your competitor even checks their phone.
+    </p>
+    <div class="hero-actions">
+      <a href="https://calendly.com/hello-potentialthrust/30min" class="btn-primary">Book a Free Strategy Call</a>
+      <a href="#how" class="btn-ghost">See how it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stat-strip">
+  <div class="stat-item reveal">
+    <span class="stat-num">&lt;90s</span>
+    <span class="stat-label">Lead response time</span>
+  </div>
+  <div class="stat-item reveal reveal-delay-1">
+    <span class="stat-num">100x</span>
+    <span class="stat-label">More likely to convert with 5-min response</span>
+  </div>
+  <div class="stat-item reveal reveal-delay-2">
+    <span class="stat-num">24/7</span>
+    <span class="stat-label">Automated nurture sequences</span>
+  </div>
+  <div class="stat-item reveal reveal-delay-3">
+    <span class="stat-num">100%</span>
+    <span class="stat-label">Done for you, zero tech required</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="problem-inner">
+    <div>
+      <div class="section-label reveal">The Reality Check</div>
+      <h2 class="section-heading reveal">You're losing deals<br>while you sleep.</h2>
+      <ul class="problem-list">
+        <li class="reveal reveal-delay-1">Zillow, Realtor.com & Facebook leads go cold in minutes — most agents respond in hours.</li>
+        <li class="reveal reveal-delay-2">Manual follow-ups slip through the cracks the moment your schedule gets busy.</li>
+        <li class="reveal reveal-delay-3">You're spending $500–2,000/mo on leads that get zero proper nurturing.</li>
+        <li class="reveal reveal-delay-4">While you're on a showing, a competitor is having your lead's conversation.</li>
+      </ul>
+    </div>
+    <div class="problem-right reveal">
+      <div class="problem-callout">
+        <p>"The odds of contacting a lead decrease by over 10× if you wait longer than 5 minutes vs. responding immediately."</p>
+        <cite>— MIT Lead Response Management Study</cite>
+      </div>
+      <div class="problem-callout">
+        <p>"50% of sales go to the first salesperson to contact the prospect."</p>
+        <cite>— Inside Sales Research</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-label reveal">The System</div>
+  <h2 class="section-heading reveal">Three layers.<br>One machine.</h2>
+
+  <div class="how-steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">⚡</div>
+      <h3>Instant<br>Speed-to-Lead</h3>
+      <p>The moment a lead opts in from any source — Zillow, Meta, your website — our GHL automation fires an AI-personalized SMS and email within 90 seconds. No delay. No exceptions.</p>
+      <div class="step-detail">SMS + Email · AI-Personalized</div>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="step-num">02</div>
+      <div class="step-icon">🎯</div>
+      <h3>AI Lead<br>Scoring</h3>
+      <p>Our GPT-4o-mini scoring engine reads every lead's response, activity, and source — then scores them 1–10 and routes them Hot, Warm, or Cold so you know exactly who to call first. Your pipeline, prioritized.</p>
+      <div class="step-detail">gpt-4o-mini · Ranked Priorities</div>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-num">03</div>
+      <div class="step-icon">🔁</div>
+      <h3>Long-Game<br>Nurture</h3>
+      <p>Most leads aren't ready today. Our sequences run for 14 days of intelligent, non-spammy follow-ups that keep you top of mind until they're ready to move.</p>
+      <div class="step-detail">14-Day Sequences · Zero Manual Work</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-header">
+    <div>
+      <div class="section-label reveal">What's Included</div>
+      <h2 class="section-heading reveal">Every system.<br>Built for you.</h2>
+    </div>
+    <p class="features-intro reveal">We don't hand you software and a tutorial. We build, configure, and install everything in your GoHighLevel account — you just close deals.</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature reveal">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-body">
+        <h4>Sub-90s Speed-to-Lead</h4>
+        <p>Webhook-triggered automation connects your lead sources to GHL. Every opt-in gets an AI-personalized SMS + email before you've even seen the notification.</p>
+      </div>
+    </div>
+    <div class="feature reveal reveal-delay-1">
+      <div class="feature-icon">🧠</div>
+      <div class="feature-body">
+        <h4>AI Lead Scoring Engine</h4>
+        <p>Custom Node.js service with GPT-4o-mini scores and ranks every lead. Scores write 1–10 (Hot/Warm/Cold) directly back to GHL contacts so your hottest leads are always at the top.</p>
+      </div>
+    </div>
+    <div class="feature reveal">
+      <div class="feature-icon">📱</div>
+      <div class="feature-body">
+        <h4>Multi-Channel Nurture</h4>
+        <p>SMS, email, and voicemail drop sequences run automatically for up to 14 days — personalized, timed, and non-spammy. The follow-up machine that never forgets.</p>
+      </div>
+    </div>
+    <div class="feature reveal reveal-delay-1">
+      <div class="feature-icon">📊</div>
+      <div class="feature-body">
+        <h4>Pipeline & CRM Build-Out</h4>
+        <p>We build your full GHL pipeline — stages, tags, custom fields, and views — configured to match how DFW real estate actually works.</p>
+      </div>
+    </div>
+    <div class="feature reveal">
+      <div class="feature-icon">🔗</div>
+      <div class="feature-body">
+        <h4>Lead Source Integration</h4>
+        <p>Zillow, Realtor.com, Facebook Lead Ads, your IDX website — we connect every source via webhook or native integration so no lead falls through the cracks.</p>
+      </div>
+    </div>
+    <div class="feature reveal reveal-delay-1">
+      <div class="feature-icon">📋</div>
+      <div class="feature-body">
+        <h4>Monthly Optimization Report</h4>
+        <p>We send you a plain-English monthly report showing response rates, pipeline velocity, and what we're adjusting — so you always know what's working.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label reveal">Transparent Pricing</div>
+  <h2 class="section-heading reveal">Flat retainers.<br>No surprises.</h2>
+
+  <div class="pricing-grid">
+    <div class="plan reveal">
+      <div class="plan-name">Starter</div>
+      <div class="plan-tagline">Speed-to-lead, AI scoring, done.</div>
+      <div class="plan-price">$800</div>
+      <div class="plan-period">/month</div>
+      <div class="plan-setup">+ $1,500 one-time setup</div>
+      <ul class="plan-features">
+        <li>90-second speed-to-lead</li>
+        <li>AI lead scoring 1–10</li>
+        <li>Hot / Warm / Cold routing</li>
+        <li>14-day nurture sequence</li>
+        <li>Hot lead agent SMS alert</li>
+        <li>Lead pipeline build-out</li>
+        <li>Free 7-day pilot</li>
+      </ul>
+      <a href="https://calendly.com/hello-potentialthrust/30min" class="plan-cta">Get Started</a>
+    </div>
+    <div class="plan featured reveal reveal-delay-1">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-name">Growth</div>
+      <div class="plan-tagline">The full machine, fully built.</div>
+      <div class="plan-price">$1,000</div>
+      <div class="plan-period">/month</div>
+      <div class="plan-setup">+ $1,800 one-time setup</div>
+      <ul class="plan-features">
+        <li>Everything in Starter</li>
+        <li>Automated review generation</li>
+        <li>Google + Zillow review requests</li>
+        <li>Referral follow-up sequences</li>
+        <li>Missed call text-back</li>
+        <li>Priority support</li>
+        <li>Free 7-day pilot</li>
+      </ul>
+      <a href="https://calendly.com/hello-potentialthrust/30min" class="plan-cta">Book a Call</a>
+    </div>
+    <div class="plan reveal reveal-delay-2">
+      <div class="plan-name">Full Stack</div>
+      <div class="plan-tagline">Complete automation suite.</div>
+      <div class="plan-price">$1,300</div>
+      <div class="plan-period">/month</div>
+      <div class="plan-setup">+ $2,300 one-time setup</div>
+      <ul class="plan-features">
+        <li>Everything in Growth</li>
+        <li>Open house follow-up</li>
+        <li>Expired listing outreach</li>
+        <li>Custom AI scoring rules</li>
+        <li>Monthly performance report</li>
+        <li>White-glove onboarding</li>
+        <li>Free 7-day pilot</li>
+      </ul>
+      <a href="https://calendly.com/hello-potentialthrust/30min" class="plan-cta">Let's Talk</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section" id="contact">
+  <h2>
+    Ready to <span class="accent">stop</span><br>
+    losing leads<br>
+    at 2AM?
+  </h2>
+  <div class="cta-right">
+    <p>Book a 20-minute strategy call. We'll audit your current lead flow and show you exactly what needs to be automated — no pitch, no pressure.</p>
+    <a href="https://calendly.com/hello-potentialthrust/30min" class="btn-primary">Book a Free Discovery Call</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    © 2026 <span>Potential Thrust</span> · Real Estate Automation · Dallas–Fort Worth
+  </div>
+  <ul class="footer-links">
+    <li><a href="mailto:hello@potentialthrust.com">hello@potentialthrust.com</a></li>
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Terms</a></li>
+  </ul>
+</footer>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="ticker">
+    <span class="ticker-item">Speed-to-Lead <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">AI Lead Scoring <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">GoHighLevel Automation <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Dallas–Fort Worth <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Sub-90s Response <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Done For You <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">14-Day Nurture <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Zero Tech Required <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Speed-to-Lead <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">AI Lead Scoring <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">GoHighLevel Automation <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Dallas–Fort Worth <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Sub-90s Response <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Done For You <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">14-Day Nurture <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Zero Tech Required <span class="ticker-dot">◆</span></span>
+  </div>
+</div>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Animated stat counters
+  const statNums = document.querySelectorAll('.stat-num');
+  const statObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        statObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  statNums.forEach(s => { s.style.opacity = '0'; s.style.transition = 'opacity 0.5s ease'; statObserver.observe(s); });
+</script>
+
+</body>
+</html>
