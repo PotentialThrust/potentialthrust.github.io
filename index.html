@@ -831,6 +831,115 @@
     50% { opacity: 0.8; transform: scale(1.2); box-shadow: 0 0 0 6px rgba(240,165,0,0); }
   }
 
+  /* ── BETA TAG ───────────────────────────────────── */
+  .beta-tag {
+    font-style: italic;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    opacity: 0.7;
+    margin-left: 6px;
+  }
+
+  .plan.featured .beta-tag {
+    color: rgba(0,0,0,0.55);
+  }
+
+  /* ── PRIVACY MODAL ─────────────────────────────── */
+  .privacy-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .privacy-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .privacy-modal {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 48px 40px;
+    max-width: 560px;
+    width: 90%;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+
+  .privacy-overlay.active .privacy-modal {
+    transform: translateY(0);
+  }
+
+  .privacy-modal h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 20px;
+  }
+
+  .privacy-modal p {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  .privacy-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+
+  .privacy-modal-close:hover {
+    color: var(--white);
+  }
+
+  /* ── ABOUT SECTION ─────────────────────────────── */
+  .about {
+    padding: 120px 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-body p {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .about-body p strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
   /* ── MOBILE RESPONSIVE ─────────────────────────── */
   @media (max-width: 768px) {
     body { padding-bottom: 0; }
@@ -930,6 +1039,10 @@
     .cta-right p { max-width: 100%; }
     .btn-primary { width: 100%; text-align: center; }
 
+    /* About */
+    .about { padding: 80px 20px; }
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+
     /* Footer */
     footer {
       flex-direction: column;
@@ -960,7 +1073,7 @@
     <li><a href="#how">How It Works</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="https://calendly.com/hello-potentialthrust/30min" class="nav-cta">Book a Free Call</a></li>
+    <li><a href="https://calendly.com/hello-potentialthrust/30min" class="nav-cta">Reserve Your Lead Audit</a></li>
   </ul>
 </nav>
 
@@ -987,7 +1100,7 @@
       Potential Thrust builds <strong>AI-powered lead systems</strong> for solo DFW agents — so every opt-in gets a response before your competitor even checks their phone.
     </p>
     <div class="hero-actions">
-      <a href="https://calendly.com/hello-potentialthrust/30min" class="btn-primary">Book a Free Strategy Call</a>
+      <a href="https://calendly.com/hello-potentialthrust/30min" class="btn-primary">Reserve Your Lead Audit</a>
       <a href="#how" class="btn-ghost">See how it works</a>
     </div>
   </div>
@@ -1146,7 +1259,7 @@
         <li>Lead pipeline build-out</li>
         <li>Free 7-day pilot</li>
       </ul>
-      <a href="https://calendly.com/hello-potentialthrust/30min" class="plan-cta">Get Started</a>
+      <a href="https://calendly.com/hello-potentialthrust/30min" class="plan-cta">Reserve Your Lead Audit</a>
     </div>
     <div class="plan featured reveal reveal-delay-1">
       <div class="plan-badge">Most Popular</div>
@@ -1157,14 +1270,14 @@
       <div class="plan-setup">+ $1,800 one-time setup</div>
       <ul class="plan-features">
         <li>Everything in Starter</li>
-        <li>Automated review generation</li>
-        <li>Google + Zillow review requests</li>
-        <li>Referral follow-up sequences</li>
+        <li>Automated review generation <span class="beta-tag">[Priority Beta — Releasing April 2026]</span></li>
+        <li>Google + Zillow review requests <span class="beta-tag">[Priority Beta — Releasing April 2026]</span></li>
+        <li>Referral follow-up sequences <span class="beta-tag">[Priority Beta — Releasing April 2026]</span></li>
         <li>Missed call text-back</li>
         <li>Priority support</li>
         <li>Free 7-day pilot</li>
       </ul>
-      <a href="https://calendly.com/hello-potentialthrust/30min" class="plan-cta">Book a Call</a>
+      <a href="https://calendly.com/hello-potentialthrust/30min" class="plan-cta">Reserve Your Lead Audit</a>
     </div>
     <div class="plan reveal reveal-delay-2">
       <div class="plan-name">Full Stack</div>
@@ -1174,14 +1287,14 @@
       <div class="plan-setup">+ $2,300 one-time setup</div>
       <ul class="plan-features">
         <li>Everything in Growth</li>
-        <li>Open house follow-up</li>
-        <li>Expired listing outreach</li>
+        <li>Open house follow-up <span class="beta-tag">[Priority Beta — Releasing April 2026]</span></li>
+        <li>Expired listing outreach <span class="beta-tag">[Priority Beta — Releasing April 2026]</span></li>
         <li>Custom AI scoring rules</li>
         <li>Monthly performance report</li>
         <li>White-glove onboarding</li>
         <li>Free 7-day pilot</li>
       </ul>
-      <a href="https://calendly.com/hello-potentialthrust/30min" class="plan-cta">Let's Talk</a>
+      <a href="https://calendly.com/hello-potentialthrust/30min" class="plan-cta">Reserve Your Lead Audit</a>
     </div>
   </div>
 </section>
@@ -1195,9 +1308,24 @@
   </h2>
   <div class="cta-right">
     <p>Book a 20-minute strategy call. We'll audit your current lead flow and show you exactly what needs to be automated — no pitch, no pressure.</p>
-    <a href="https://calendly.com/hello-potentialthrust/30min" class="btn-primary">Book a Free Discovery Call</a>
+    <a href="https://calendly.com/hello-potentialthrust/30min" class="btn-primary">Reserve Your Lead Audit</a>
   </div>
 </div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div>
+      <div class="section-label reveal">About Us</div>
+      <h2 class="section-heading reveal">Engineering Precision<br>into Real Estate Growth</h2>
+    </div>
+    <div class="about-body reveal">
+      <p><strong>Potential Thrust was founded on a simple realization:</strong> In a world of instant gratification, a lead left waiting for 5 minutes is a lead lost to a competitor.</p>
+      <p>Our founder brings a background in <strong>Mission-Critical Systems Management</strong> and is currently completing an MBA to bridge the gap between complex automation and real-world business results. We don't just "set up software" — we build high-reliability digital infrastructure that qualifies, scores, and captures opportunities while you sleep.</p>
+      <p>Backed by a stack of <strong>Python, Node.js, and GPT-4o-mini</strong>, our systems are engineered for speed, data integrity, and absolute reliability. At Potential Thrust, we believe your focus should be on closing deals, not chasing data.</p>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
@@ -1206,10 +1334,19 @@
   </div>
   <ul class="footer-links">
     <li><a href="mailto:hello@potentialthrust.com">hello@potentialthrust.com</a></li>
-    <li><a href="#">Privacy</a></li>
+    <li><a href="#" id="privacy-link" onclick="event.preventDefault(); document.getElementById('privacy-modal').classList.add('active');">Privacy</a></li>
     <li><a href="#">Terms</a></li>
   </ul>
 </footer>
+
+<!-- PRIVACY MODAL -->
+<div class="privacy-overlay" id="privacy-modal" onclick="if(event.target===this) this.classList.remove('active');">
+  <div class="privacy-modal">
+    <button class="privacy-modal-close" onclick="document.getElementById('privacy-modal').classList.remove('active');" aria-label="Close">✕</button>
+    <h3>Our Data Integrity Standard</h3>
+    <p>At Potential Thrust, we believe your database is your most valuable asset. Our systems are built on private, encrypted API layers — we never sell your lead data or use it to train public AI models. We provide the engine; you own the fuel.</p>
+  </div>
+</div>
 
 <!-- TICKER -->
 <div class="ticker">
