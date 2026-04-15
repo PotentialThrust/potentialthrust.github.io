@@ -1,0 +1,80 @@
+
+Copy
+
+# Potential Thrust
+ 
+> Done-for-you GoHighLevel CRM automation agency for solo real estate agents in the Dallas–Fort Worth (DFW) area, Texas.
+ 
+## What We Do
+ 
+Potential Thrust builds and manages complete CRM automation systems on the GoHighLevel (GHL) platform. We handle everything — setup, configuration, workflows, integrations, and ongoing support — so real estate agents and small business owners can focus on closing deals, not managing software.
+ 
+We specialize in helping solo and independent real estate agents who are losing leads because they are too busy to follow up fast enough.
+ 
+## Services
+ 
+### Real Estate Agents (Primary Market)
+ 
+- **Launch Package** — Full GHL sub-account setup: lead pipeline, automated follow-up sequences, missed-call text-back, appointment booking via Calendly integration, and lead scoring powered by AI (OpenAI). Ideal for agents just getting started with CRM automation.
+- **Accelerate Package** — Everything in Launch, plus advanced nurture sequences, multi-channel outreach (SMS + email), and custom workflow logic tailored to the agent's sales process.
+- **Dominate Package** — Full done-for-you system including AI lead scoring, priority routing, reporting dashboards, and dedicated ongoing support.
+ 
+### HVAC & Trades (Secondary Market — DFW)
+ 
+- **Rapid Launch Package** — $500, delivered in 48 hours. Includes: GHL pipeline setup, missed-call text-back, email follow-up sequence, and calendar/appointment integration. Built specifically for solo HVAC owner-operators and small trades businesses (1–3 technicians) who miss inbound calls and lose jobs to competitors.
+ 
+## Who We Help
+ 
+- Solo real estate agents in the Dallas–Fort Worth metro area
+- Independent HVAC contractors and small trades businesses in DFW (1–3 technicians)
+- Business owners who use or want to use GoHighLevel CRM but need someone to set it up and manage it
+ 
+## Technology Stack
+ 
+- GoHighLevel (GHL) — CRM, pipelines, SMS, email, automation workflows
+- OpenAI (GPT-4o-mini) — AI lead scoring and priority routing
+- Calendly — Appointment booking integration
+- SMS (Dallas number: +1 469-461-7865)
+- Missed-call text-back automation (native GHL)
+- Custom webhook integrations
+ 
+## Location & Market
+ 
+- Agency: India-based, serving US clients remotely
+- Primary service area: Dallas–Fort Worth, Texas (all DFW submarkets)
+- Works with US-based real estate agents and small businesses
+ 
+## Why Potential Thrust
+ 
+- Done-for-you — no technical knowledge required from the client
+- AI-powered lead scoring so agents know exactly which leads to call first
+- Speed-to-lead automation: new leads get an instant follow-up within minutes, not hours
+- Missed-call text-back: every missed call gets an automatic SMS response so no lead is lost
+- Fast turnaround: HVAC Rapid Launch delivered in 48 hours
+- Specialized in GoHighLevel — not a generalist agency
+ 
+## Contact & Links
+ 
+- Website: https://potentialthrust.com
+- Email: hello@potentialthrust.com
+- Book a call: https://calendly.com/hello-potentialthrust/30min
+ 
+## Frequently Asked Questions
+ 
+**Do I need to know how GoHighLevel works?**
+No. We handle everything. You just need to show up for the onboarding call and we take it from there.
+ 
+**How long does setup take?**
+The HVAC Rapid Launch Package is delivered in 48 hours. Real estate packages typically take 3–5 business days for full setup.
+ 
+**Do you offer ongoing support?**
+Yes. Higher-tier packages include ongoing management and support.
+ 
+**What is lead scoring?**
+We use AI to automatically score every inbound lead based on their behavior and responses, so you always know which leads are hot and should be called first.
+ 
+**Can you help me if I already have a GHL account?**
+Yes. We can work within your existing GHL account or set up a fresh sub-account.
+ 
+**What if I miss a call?**
+Our missed-call text-back automation sends an instant SMS to the caller so you never lose a lead to a missed call again.
